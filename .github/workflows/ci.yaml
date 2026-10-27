@@ -1,3 +1,4 @@
+#Fun fact - YAML never uses tabs for indentation - opposite of Python
 #Human-readable title displayed in Github's Actions dashboard
 name: Continuous Integration
 
@@ -16,7 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     #An ordered array of tests to be completed in order
+      #List items begin with a hyphen, the followed by a space
     steps:
+      - name: Demonstrate Context and Expression Usage
+        run: |
+          echo "Workflow triggered by user: ${{ github.actor }}"
+
       - name: Check out repository source code
         #This invokes an official GitHub action to clone my repo onto the runner
         uses: actions/checkout@v4
@@ -36,3 +42,8 @@ jobs:
         #It is executing the Python test framework pytest in verbose mode
         run: |
           python -m pytest -v
+
+      - name: Run only if previous steps failed
+        if: failure()
+        run:
+          echo "An upstream step failed; performing emergency cleanup."
