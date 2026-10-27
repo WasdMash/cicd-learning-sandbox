@@ -35,4 +35,4 @@ jobs:
       - name: Run automated test suite
         #It is executing the Python test framework pytest in verbose mode
         run: |
-          pytest -v
+          python -m pytest -v
