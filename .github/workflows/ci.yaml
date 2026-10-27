@@ -1,0 +1,38 @@
+#Human-readable title displayed in Github's Actions dashboard
+name: Continuous Integration
+
+#These are the event triggers - namely when I push and pull on main branch
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+#These are my groups of individual execution blocks
+jobs:
+  run-tests:
+    name: Execute Unit Tests
+    #Github will provide a runner on this OS for me
+    runs-on: ubuntu-latest
+
+    #An ordered array of tests to be completed in order
+    steps:
+      - name: Check out repository source code
+        #This invokes an official GitHub action to clone my repo onto the runner
+        uses: actions/checkout@v4
+
+      - name: Set up Python runtime
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        #Now it is executing these multiple shell commends at once
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run automated test suite
+        #It is executing the Python test framework pytest in verbose mode
+        run: |
+          pytest -v
