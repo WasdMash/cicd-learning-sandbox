@@ -1,6 +1,6 @@
 def add_numbers(a: float, b: float) -> float:
      """Add two numbers and return the result.""" 
-     return a - b
+     return a + b
 
 def calculate_discount(price: float, discount_percent: float) -> float:
     """Calculate discounted price.""" 
