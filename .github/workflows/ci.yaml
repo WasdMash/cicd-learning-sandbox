@@ -19,6 +19,12 @@ jobs:
     #Github will provide a runner on this OS for me
     runs-on: ubuntu-latest
 
+    #Especially helpful for me - if I push a bunch of commits in a short period of time, this will cancel the current workflow execution instead
+    # of needlessly running the same thing multiple times for each minor change
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     #An ordered array of tests to be completed in order
       #List items begin with a hyphen, the followed by a space
     steps:

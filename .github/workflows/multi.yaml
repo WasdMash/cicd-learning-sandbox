@@ -24,6 +24,7 @@ jobs:
   matrix-test:
     name: Test on Python ${{ matrix.python-version }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 15 # Terminate if execution exceeds 15 minutes - by default, would be 6 hours of useless running if it failed
     strategy:
       fail-fast: false # if true, when one matrix fails, all others stop as well; when false, they will all aim to run to completion
       matrix:

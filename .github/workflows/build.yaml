@@ -13,11 +13,12 @@ on:
 #| - Downloadable via UI or downstream jobs via actions/download-artifact@v4    
 
 jobs:
+  # Needs to have a pyproject.toml or setup.py before it treats this repo as a project and actually builds it
   package-and-archive:
     name: Build and Archive Wheel
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # using a specific commit is safer against compromised maintainer accounts in the future - this links to v4.1.1
 
       - uses: actions/setup-python@v5
         with:
