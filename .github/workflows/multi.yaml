@@ -1,11 +1,11 @@
 name: Multi-Job Pipeline
 
 #Triggers - the events which will cause this action to trigger
-#on:
-  #push:
-    #branches: [ "main" ] #Ideally, should be triggered by changes on my production branch
-  #pull_request:
-    #branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ] #Ideally, should be triggered by changes on my production branch
+  pull_request:
+    branches: [ "main" ]
 
 # These jobs run in order - if one fails, the rest don't get a chance to run
 jobs:

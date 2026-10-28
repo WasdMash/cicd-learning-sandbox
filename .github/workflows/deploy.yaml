@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Generate static HTML
-        run: python scripts/build_docs.py
+        run: python scripts/build.py
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
