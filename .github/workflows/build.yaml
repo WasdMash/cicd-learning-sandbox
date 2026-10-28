@@ -1,0 +1,45 @@
+name: Publish builds
+
+on:
+  push:
+    branches: [ "main" ]
+
+#| [ CACHE ]               actions/cache@v4                                            |
+#| - Speeds up runs by reusing third-party packages (e.g., node_modules, ~/.cache/pip) |
+#| - Ephemeral, automatic eviction, not shared across forks                            |
+#|                                                                                     |
+#| [ ARTIFACT ]            actions/upload-artifact@v4                                  |
+#| - Stores build outputs (compiled binaries, test reports, tarballs)                  |
+#| - Downloadable via UI or downstream jobs via actions/download-artifact@v4    
+
+jobs:
+  package-and-archive:
+    name: Build and Archive Wheel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tool
+        run: pip install build
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      # Here, we are uploading the compiled packages/builds as artifacts
+      - name: Upload distribution packages as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-dist-packages
+          path: dist/
+          retention-days: 7
+
+    #If I want to download the same artifacts
+      #- name: Download distribution packages
+        #uses: actions/download-artifact@v4
+        #with:
+          #name: python-dist-packages
+          #path: downloaded-dist/
