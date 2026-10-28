@@ -43,3 +43,14 @@ jobs:
         #with:
           #name: python-dist-packages
           #path: downloaded-dist/
+
+  publish-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allows creating releases and tags - if only this job needs it, then only set the permissions here
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Release
+        run: gh release create v1.0.0 --title "v1.0.0" --notes "Release notes"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
